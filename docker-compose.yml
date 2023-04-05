@@ -1,0 +1,77 @@
+version: '3.9'
+services:
+  webapp:
+    build:
+      args:
+        - PIP_VERSION=${WEBAPP_PIP_VERSION:-23.0.1}
+        - POETRY_VERSION=${WEBAPP_POETRY_VERSION:-1.3.2}
+        - PYTHON_VERSION=${WEBAPP_PYTHON_VERSION:-3.10.10}
+        - VERSION=${WEBAPP_VERSION:-dev}
+      context: services/webapp/
+    container_name: webapp.alpha
+    depends_on:
+      - db
+    entrypoint: [ task, run-server-prod ]
+    environment:
+      DATABASE_URL: postgresql://alpha:alpha@db:5432/alpha
+      MODE_DEBUG: 1
+      PORT: 80
+      TEST_SERVICE_URL: http://webapp:80
+    image: webapp.alpha:${WEBAPP_VERSION:-dev}
+    networks:
+      - alpha
+    ports:
+      - "8000:80"
+    tmpfs:
+      - /app/.local/:mode=777,size=10m,uid=1000,gid=1000
+    volumes:
+      - ./services/webapp/:/app/:ro
+  db:
+    build:
+      context: services/db/
+      args:
+        - VERSION=${DB_VERSION:-dev}
+    container_name: db.alpha
+    environment:
+      POSTGRES_USER: alpha
+      POSTGRES_PASSWORD: alpha
+      POSTGRES_DB: alpha
+    image: db.alpha:${DB_VERSION:-dev}
+    ports:
+      - "5432:5432"
+    networks:
+      - alpha
+    volumes:
+      - ./.local/services/db/data/:/var/lib/postgresql/data:rw
+  dba:
+    build:
+      context: services/dba/
+    container_name: dba.alpha
+    depends_on:
+      - db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: alpha@alpha.dev
+      PGADMIN_DEFAULT_PASSWORD: alpha
+    image: dba.alpha:dev
+    ports:
+      - "8801:80"
+    networks:
+      - alpha
+  docs:
+    build:
+      args:
+        - PIP_VERSION=${DOCS_PIP_VERSION:-23.0.1}
+        - VERSION=${DOCS_VERSION:-dev}
+      context: services/docs/
+    container_name: docs.alpha
+    image: docs.alpha:${DOCS_VERSION:-dev}
+    networks:
+      - alpha
+    ports:
+      - "8802:8000"
+    volumes:
+      - ./services/docs/:/docs/:rw
+networks:
+  alpha:
+    name: alpha.net
+    driver: bridge
