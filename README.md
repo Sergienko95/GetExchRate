@@ -22,6 +22,8 @@ pyproject.toml -> [tool.poetry.dependencies] -> python = "...".
 7. Щелкните "Параметры встроенного ПО UEFI", затем выберите "Перезагрузить".
 8. Отобразится интерфейс утилиты настройки BIOS.
 9. Перейдите в Configuration -> Intel Virtual Technology -> ставим Enabled.
+
+
 Если после проделанной работы при открытии Docker возникла ошибка "Docker requires a newer WSL kernel version"
 (обновить WSL ядро), следует зайти через cmd в папку репозитория и запустить команду "wsl --update".
 Если после команд docker compose build && docker compose up (запуска и сбора сборки) появляется ошибка вида 
@@ -33,4 +35,6 @@ pyproject.toml -> [tool.poetry.dependencies] -> python = "...".
 - docker-compose.yml
 - .env.dist
 - .env
+
+
 Если в этих файлах есть PYTHON_VERSION = "...", то исправляем на ту, которая установлена на вашем ПК.
