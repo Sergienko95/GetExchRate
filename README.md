@@ -1,7 +1,7 @@
 # GetExchRate
 
-Если при утановки или обновлении poetry, возникла ошибка типа "The currently activated Python version 3.10.9 
-is not supported by the project (3.10.10). Trying to find and use a compatible version.", то имеете дело с конфликтом
+Если при утановки или обновлении `poetry`, возникла ошибка типа `"The currently activated Python version 3.10.9 
+is not supported by the project (3.10.10). Trying to find and use a compatible version."`, то имеете дело с конфликтом
 версий Python.
 У меня на компьтере активизированная версия python 3.10.9, а проект поддерживает версию python 3.10.10. 
 Чтобы это исправить, следует в файле pyproject.toml в python dependencies изменить версию python 
@@ -11,7 +11,7 @@ is not supported by the project (3.10.10). Trying to find and use a compatible v
 Чтобы избежать подобных ситуаций нужно установить себе python той версии, которая указана здесь 
 pyproject.toml -> [tool.poetry.dependencies] -> python = "...".
 
-После установки Docker на ПК и его открытия, возникла ошибка "An unexpected error occurred". Это означает, 
+После установки `Docker` на ПК и его открытия, возникла ошибка `"An unexpected error occurred"`. Это означает, 
 что виртуализация должна быть включена в BIOS. Чтобы добавить виртуализацию в BIOS из Windows, нужно 
 1. Нажмите кнопку меню «Пуск»; 
 2. Выберите значок «Параметры \ Настройки» в левой части меню, чтобы открыть окно настроек; 
@@ -24,10 +24,11 @@ pyproject.toml -> [tool.poetry.dependencies] -> python = "...".
 9. Перейдите в Configuration -> Intel Virtual Technology -> ставим Enabled.
 
 
-Если после проделанной работы при открытии Docker возникла ошибка "Docker requires a newer WSL kernel version"
+Если после проделанной работы при открытии `Docker` возникла ошибка `"Docker requires a newer WSL kernel version"`
 (обновить WSL ядро), следует зайти через cmd в папку репозитория и запустить команду "wsl --update".
-Если после команд docker compose build && docker compose up (запуска и сбора сборки) появляется ошибка вида 
-"RUN poetry env use "3.10.10"", это значит, что этот файл использует poetry, чтобы создать окружение и тд. 
+
+Если после команд `docker compose build && docker compose up` (запуска и сбора сборки) появляется ошибка вида 
+`"RUN poetry env use "3.10.10""`, это значит, что этот файл использует poetry, чтобы создать окружение и тд. 
 Если версии не совпадают - ошибка. Когда запускаем сборку docker compose build, то docker берёт образы python 
 другой версии. Нужно исправить версию в образе docker. Версия python может быть настроена в следующих файлах:
 - services/webapp/Dockerfile
