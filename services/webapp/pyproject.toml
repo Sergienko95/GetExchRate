@@ -2,10 +2,10 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 [tool.poetry]
-authors = ["Alexander Sidorov <alexander@sidorov.dev>"]
+authors = ["Jana Sergienko <jana_monkey@mail.ru>"]
 description = "The template for building a web project."
 license = "MIT"
-name = "alpha"
+name = "getexchrate"
 version = "2023.03.01"
 
 
@@ -124,7 +124,7 @@ markers = [
     "unit",
 ]
 testpaths = [
-    "alpha",
+    "getexchrate",
     "tests",
 ]
 
@@ -139,7 +139,7 @@ disallow_incomplete_defs = true
 disallow_untyped_calls = true
 disallow_untyped_defs = true
 exclude=[".local/*",]
-files = ["alpha", "webapp", "tests",]
+files = ["getexchrate", "webapp", "tests",]
 no_implicit_optional = true
 pretty = true
 python_version = "3.10"
