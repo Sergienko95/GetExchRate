@@ -68,11 +68,6 @@ tasks:
 
   default:
     cmds:
-      - pyenv install --skip-existing "{{.PYTHON_VERSION}}"
-      - pip install --upgrade "pip=={{.PIP_VERSION}}"
-      - pip install --ignore-installed "poetry=={{.POETRY_VERSION}}"
-      - poetry env use "{{.PYTHON_VERSION}}"
-      - poetry install --with dev
       - echo "ROOT_DIR={{.ROOT_DIR}}"
       - echo "USER_WORKING_DIR={{.USER_WORKING_DIR}}"
       - echo "TASKFILE_DIR={{.TASKFILE_DIR}}"
@@ -129,17 +124,30 @@ tasks:
       - "{{.DIR_LOCAL}}/coverage/html/**/*"
     run: once
 
+  setup-toolchain:
+    cmds:
+      - pyenv install --skip-existing "{{.PYTHON_VERSION}}"
+      - pip install --upgrade "pip=={{.PIP_VERSION}}"
+      - pip install --ignore-installed "poetry=={{.POETRY_VERSION}}"
+      - poetry env use "{{.PYTHON_VERSION}}"
+      - poetry install --with dev
+      - task: default
+    desc: setup toolchain
+    dir: "{{.ROOT_DIR}}"
+    run: once
+
+
 vars:
   DIR_LOCAL:
     sh: (cd "{{.ROOT_DIR}}"/.local && pwd)
   DIR_VENV:
-    sh: (cd "$(poetry env info --path)" && pwd) || echo '.venv'
+    sh: (cd "$(poetry env info --path)" && pwd) || echo '.local'
   PIP_VERSION:
-    sh: cat "{{.ROOT_DIR}}/.pip-version"
+    sh: (cat "{{.ROOT_DIR}}/.pip-version" || echo '23.0.1')
   POETRY_VERSION:
-    sh: cat "{{.ROOT_DIR}}/.poetry-version"
+    sh: (cat "{{.ROOT_DIR}}/.poetry-version" || echo '1.3.2')
   PYTHON_VERSION:
-    sh: cat "{{.ROOT_DIR}}/.python-version"
+    sh: (cat "{{.ROOT_DIR}}/.python-version" || echo '3.10.9')
 
 
 env:
