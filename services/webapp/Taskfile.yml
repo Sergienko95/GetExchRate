@@ -2,6 +2,9 @@ version: '3'
 
 output: 'prefixed'
 
+includes:
+  windows: ./Taskfile_windows.yml
+
 tasks:
 
   code-format:
