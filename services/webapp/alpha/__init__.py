@@ -1,7 +1,0 @@
-ALPHA_BRAND = "getexchrate"
-ALPHA_OWNER = "Sergienko95"
-ALPHA_MAINTAINER_EMAIL = "jana_monkey@mail.ru"
-ALPHA_MAINTAINER = f"Jana Sergienko <{ALPHA_MAINTAINER_EMAIL}>"
-ALPHA_DESCRIPTION = "The template for building a web project."
-ALPHA_DOCKERHUB_IMAGE = "janasergienko/getexchrate"
-ALPHA_HEROKU_APP_NAME = "getexchratesrv"
