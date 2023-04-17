@@ -73,7 +73,7 @@ jobs:
 
       - name: 🛠️ Developer toolchain is set.
         run: |
-          task
+          task setup-toolchain
           poetry env info
         working-directory: services/webapp/
 
