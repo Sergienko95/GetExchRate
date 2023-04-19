@@ -44,10 +44,10 @@ RUN apt update \
 # ~~~~~~~~ Poetry & Python dependencies ~~~~~~~~
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ARG PIP_VERSION=23.0.1
+ARG PIP_VERSION=23.1
 RUN pip install "pip==${PIP_VERSION}"
 
-ARG POETRY_VERSION=1.3.2
+ARG POETRY_VERSION=1.4.2
 RUN pip install "poetry==${POETRY_VERSION}"
 
 COPY --from=build-task /app/bin/task /usr/bin/task
@@ -58,7 +58,7 @@ COPY --from=build-task /app/bin/task /usr/bin/task
 
 ARG GROUP_ID=1000
 ARG USER_ID=1000
-ARG USERNAME=alpha
+ARG USERNAME=getexchrate
 
 ARG DIR_APP="/app"
 ARG DIR_CACHE="/var/cache/app"

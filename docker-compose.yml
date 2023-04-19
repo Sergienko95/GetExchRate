@@ -3,23 +3,23 @@ services:
   webapp:
     build:
       args:
-        - PIP_VERSION=${WEBAPP_PIP_VERSION:-23.0.1}
-        - POETRY_VERSION=${WEBAPP_POETRY_VERSION:-1.3.2}
+        - PIP_VERSION=${WEBAPP_PIP_VERSION:-23.}
+        - POETRY_VERSION=${WEBAPP_POETRY_VERSION:-1.4.2}
         - PYTHON_VERSION=${WEBAPP_PYTHON_VERSION:-3.10.9}
         - VERSION=${WEBAPP_VERSION:-dev}
       context: services/webapp/
-    container_name: webapp.alpha
+    container_name: webapp.getexchrate
     depends_on:
       - db
     entrypoint: [ task, run-server-prod ]
     environment:
-      DATABASE_URL: postgresql://alpha:alpha@db:5432/alpha
+      DATABASE_URL: postgresql://getexchrate:getexchrate@db:5432/getexchrate
       MODE_DEBUG: 1
       PORT: 80
       TEST_SERVICE_URL: http://webapp:80
-    image: webapp.alpha:${WEBAPP_VERSION:-dev}
+    image: webapp.getexchrate:${WEBAPP_VERSION:-dev}
     networks:
-      - alpha
+      - getexchrate
     ports:
       - "8000:80"
     tmpfs:
@@ -31,47 +31,47 @@ services:
       context: services/db/
       args:
         - VERSION=${DB_VERSION:-dev}
-    container_name: db.alpha
+    container_name: db.getexchrate
     environment:
-      POSTGRES_USER: alpha
-      POSTGRES_PASSWORD: alpha
-      POSTGRES_DB: alpha
-    image: db.alpha:${DB_VERSION:-dev}
+      POSTGRES_USER: getexchrate
+      POSTGRES_PASSWORD: getexchrate
+      POSTGRES_DB: getexchrate
+    image: db.getexchrate:${DB_VERSION:-dev}
     ports:
       - "5432:5432"
     networks:
-      - alpha
+      - getexchrate
     volumes:
       - ./.local/services/db/data/:/var/lib/postgresql/data:rw
   dba:
     build:
       context: services/dba/
-    container_name: dba.alpha
+    container_name: dba.getexchrate
     depends_on:
       - db
     environment:
-      PGADMIN_DEFAULT_EMAIL: alpha@alpha.dev
-      PGADMIN_DEFAULT_PASSWORD: alpha
-    image: dba.alpha:dev
+      PGADMIN_DEFAULT_EMAIL: getexchrate@getexchrate.dev
+      PGADMIN_DEFAULT_PASSWORD: getexchrate
+    image: dba.getexchrate:dev
     ports:
       - "8801:80"
     networks:
-      - alpha
+      - getexchrate
   docs:
     build:
       args:
-        - PIP_VERSION=${DOCS_PIP_VERSION:-23.0.1}
+        - PIP_VERSION=${DOCS_PIP_VERSION:-23.1}
         - VERSION=${DOCS_VERSION:-dev}
       context: services/docs/
-    container_name: docs.alpha
-    image: docs.alpha:${DOCS_VERSION:-dev}
+    container_name: docs.getexchrate
+    image: docs.getexchrate:${DOCS_VERSION:-dev}
     networks:
-      - alpha
+      - getexchrate
     ports:
       - "8802:8000"
     volumes:
       - ./services/docs/:/docs/:rw
 networks:
-  alpha:
-    name: alpha.net
+  getexchrate:
+    name: getexchrate.net
     driver: bridge

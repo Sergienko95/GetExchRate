@@ -87,7 +87,7 @@ def test_database_url_from_db_components() -> None:
     with pytest.raises(ValidationError) as exc_info:
         Settings(
             DB_DRIVER="postgresql",
-            DB_PORT="5432",
+            DB_PORT=5432,
         ).database_url_from_db_components()
     err = json.loads(exc_info.value.json())
     assert isinstance(err, list)

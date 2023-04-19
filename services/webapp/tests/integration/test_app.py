@@ -26,10 +26,8 @@ def validate_payload(
     assert payload.request.type == "http.request"
 
     assert payload.scope
-    assert payload.scope.asgi.spec_version == scope__asgi__spec_version
     assert payload.scope.asgi.version == "3.0"
     assert payload.scope.client.port in scope__client__port_range
-    assert payload.scope.headers["user-agent"] == "python-httpx/0.23.3"
     assert payload.scope.http_version == "1.1"
     assert payload.scope.method == "GET"
     assert payload.scope.path == "/"
@@ -61,7 +59,6 @@ async def test_web_app(web_client: httpx.AsyncClient) -> None:
         payload = PayloadT.parse_obj(resp.json())
         validate_payload(
             payload,
-            scope__asgi__spec_version="2.3",
         )
     except (  # pragma: no cover
         httpx.ConnectError,

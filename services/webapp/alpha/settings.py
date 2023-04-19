@@ -27,7 +27,7 @@ class DatabaseSettings(pd.BaseSettings):
     DB_PORT: int | None = None
     DB_USER: str | None = pd.Field(env=["DB_USER", "POSTGRES_USER"])
 
-    Config = build_config()
+    Config = build_config()  # type: ignore
 
     def database_url_from_db_components(self) -> str:
         """
@@ -98,7 +98,7 @@ class DatabaseSettings(pd.BaseSettings):
 class Settings(DatabaseSettings):
     __name__ = "Settings"  # noqa: VNE003
 
-    Config = build_config()
+    Config = build_config()  # type: ignore
 
     HEROKU_API_TOKEN: str | None = None
     HEROKU_APP_NAME: str | None = None

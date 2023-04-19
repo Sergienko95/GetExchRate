@@ -1,12 +1,12 @@
 {
   "Servers": {
     "1": {
-      "Name": "Alpha DB",
-      "Group": "Alpha",
+      "Name": "GetExchRate DB",
+      "Group": "GetExchRate",
       "Host": "db",
       "Port": 5432,
       "MaintenanceDB": "postgres",
-      "Username": "alpha",
+      "Username": "getexchrate",
       "KerberosAuthentication": false,
       "ConnectionParameters": {
         "sslmode": "prefer",
