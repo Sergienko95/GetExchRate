@@ -57,20 +57,6 @@ services:
       - "8801:80"
     networks:
       - getexchrate
-  docs:
-    build:
-      args:
-        - PIP_VERSION=${DOCS_PIP_VERSION:-23.1}
-        - VERSION=${DOCS_VERSION:-dev}
-      context: services/docs/
-    container_name: docs.getexchrate
-    image: docs.getexchrate:${DOCS_VERSION:-dev}
-    networks:
-      - getexchrate
-    ports:
-      - "8802:8000"
-    volumes:
-      - ./services/docs/:/docs/:rw
 networks:
   getexchrate:
     name: getexchrate.net
