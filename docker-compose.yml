@@ -3,10 +3,10 @@ services:
   webapp:
     build:
       args:
-        - PIP_VERSION=${WEBAPP_PIP_VERSION:-23.}
-        - POETRY_VERSION=${WEBAPP_POETRY_VERSION:-1.4.2}
-        - PYTHON_VERSION=${WEBAPP_PYTHON_VERSION:-3.10.9}
-        - VERSION=${WEBAPP_VERSION:-dev}
+        - PIP_VERSION=${WEBAPP_PIP_VERSION}
+        - POETRY_VERSION=${WEBAPP_POETRY_VERSION}
+        - PYTHON_VERSION=${WEBAPP_PYTHON_VERSION}
+        - VERSION=${WEBAPP_VERSION}
       context: services/webapp/
     container_name: webapp.getexchrate
     depends_on:
@@ -17,7 +17,7 @@ services:
       MODE_DEBUG: 1
       PORT: 80
       TEST_SERVICE_URL: http://webapp:80
-    image: webapp.getexchrate:${WEBAPP_VERSION:-dev}
+    image: webapp.getexchrate:${WEBAPP_VERSION}
     networks:
       - getexchrate
     ports:
@@ -30,13 +30,13 @@ services:
     build:
       context: services/db/
       args:
-        - VERSION=${DB_VERSION:-dev}
+        - VERSION=${DB_VERSION}
     container_name: db.getexchrate
     environment:
       POSTGRES_USER: getexchrate
       POSTGRES_PASSWORD: getexchrate
       POSTGRES_DB: getexchrate
-    image: db.getexchrate:${DB_VERSION:-dev}
+    image: db.getexchrate:${DB_VERSION}
     ports:
       - "5432:5432"
     networks:
