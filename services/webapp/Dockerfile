@@ -56,12 +56,12 @@ COPY --from=build-task /app/bin/task /usr/bin/task
 # ~~~~~~~~ User & App directories ~~~~~~~~~~~~~~
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ARG GROUP_ID=1000
-ARG USER_ID=1000
+ARG GROUP_ID=9999
+ARG USER_ID=9999
 ARG USERNAME=getexchrate
 
-ARG DIR_APP=${DIR_APP}
-ARG DIR_CACHE=${DIR_CACHE}
+ARG DIR_APP="/app"
+ARG DIR_CACHE="/var/cache/app"
 
 RUN addgroup --system --gid ${GROUP_ID} ${USERNAME} \
     && useradd \
