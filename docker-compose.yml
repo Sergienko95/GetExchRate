@@ -13,17 +13,17 @@ services:
       - db
     entrypoint: [ task, run-server-prod ]
     environment:
-      DATABASE_URL: postgresql://getexchrate:getexchrate@db:5432/getexchrate
-      MODE_DEBUG: 1
-      PORT: 80
-      TEST_SERVICE_URL: http://webapp:80
+      DATABASE_URL: ${WEBAPP_DATABASE_URL}
+      MODE_DEBUG: ${WEBAPP_MODE_DEBUG}
+      PORT: ${WEBAPP_PORT}
+      TEST_SERVICE_URL: ${WEBAPP_TEST_SERVICE_URL}
     image: webapp.getexchrate:${WEBAPP_VERSION}
     networks:
       - getexchrate
     ports:
       - "8000:80"
     tmpfs:
-      - /app/.local/:mode=777,size=10m,uid=1000,gid=1000
+      - /app/.local/:mode=777,size=10m,uid=9999,gid=9999
     volumes:
       - ./services/webapp/:/app/:ro
   db:

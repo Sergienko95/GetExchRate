@@ -12,4 +12,4 @@ pythonpath = DIR_APP.as_posix()
 reload = False
 timeout = graceful_timeout * 2
 worker_class = "uvicorn.workers.UvicornH11Worker"
-workers = settings.WEB_CONCURRENCY
+workers = 2

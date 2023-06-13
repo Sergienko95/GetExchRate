@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG PYTHON_VERSION=3.10.9
+ARG PYTHON_VERSION=${PYTHON_VERSION}
 
 
 # ==============================================
@@ -23,7 +23,7 @@ FROM --platform=linux/amd64 python:${PYTHON_VERSION}-slim
 LABEL description="The template for building a web project."
 LABEL org.opencontainers.image.authors="Alexander Sidorov <alexander@sidorov.dev>"
 
-ARG VERSION=dev
+ARG VERSION=${VERSION}
 LABEL version=${VERSION}
 
 
@@ -44,10 +44,10 @@ RUN apt update \
 # ~~~~~~~~ Poetry & Python dependencies ~~~~~~~~
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ARG PIP_VERSION=23.1
+ARG PIP_VERSION=${PIP_VERSION}
 RUN pip install "pip==${PIP_VERSION}"
 
-ARG POETRY_VERSION=1.4.2
+ARG POETRY_VERSION=${POETRY_VERSION}
 RUN pip install "poetry==${POETRY_VERSION}"
 
 COPY --from=build-task /app/bin/task /usr/bin/task
@@ -56,8 +56,8 @@ COPY --from=build-task /app/bin/task /usr/bin/task
 # ~~~~~~~~ User & App directories ~~~~~~~~~~~~~~
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-ARG GROUP_ID=1000
-ARG USER_ID=1000
+ARG GROUP_ID=9999
+ARG USER_ID=9999
 ARG USERNAME=getexchrate
 
 ARG DIR_APP="/app"
