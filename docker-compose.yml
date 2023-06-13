@@ -23,7 +23,7 @@ services:
     ports:
       - "8000:80"
     tmpfs:
-      - /app/.local/:mode=777,size=10m,uid=1000,gid=1000
+      - /app/.local/:mode=777,size=10m,uid=9999,gid=9999
     volumes:
       - ./services/webapp/:/app/:ro
   db:
