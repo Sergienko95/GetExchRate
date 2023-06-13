@@ -13,4 +13,3 @@ reload = False
 timeout = graceful_timeout * 2
 worker_class = "uvicorn.workers.UvicornH11Worker"
 workers = 2
-    
