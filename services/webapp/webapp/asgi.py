@@ -143,3 +143,8 @@ if not settings.MODE_DEBUG and settings.SENTRY_DSN:
 
     sentry_sdk.init(settings.SENTRY_DSN, traces_sample_rate=1.0)
     application = SentryAsgiMiddleware(application)
+
+
+def favourite_languages() -> dict:
+    person = {'jen': 'python', 'sarah': 'c', 'edward': 'ruby', 'phil': 'python'}
+    return person
