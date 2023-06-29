@@ -1,3 +1,4 @@
+import json
 from contextlib import asynccontextmanager
 from typing import AsyncIterator
 from typing import Callable
@@ -89,12 +90,19 @@ async def application(scope: Dict, receive: Callable, send: Callable) -> None:
         }
     )
 
-    db_settings = await get_db_settings()
-    payload = build_payload(scope, request, db_settings)
+    payload: PayloadT | dict
+
+    if path == "/api/v1/favourite_languages":
+        payload = favourite_languages()
+        body = json.dumps(payload).encode()
+    else:
+        db_settings = await get_db_settings()
+        payload = build_payload(scope, request, db_settings)
+        body = payload.json(sort_keys=True, indent=2).encode()
 
     await send(
         {
-            "body": payload.json(sort_keys=True, indent=2).encode(),
+            "body": body,
             "type": "http.response.body",
         }
     )
@@ -143,3 +151,13 @@ if not settings.MODE_DEBUG and settings.SENTRY_DSN:
 
     sentry_sdk.init(settings.SENTRY_DSN, traces_sample_rate=1.0)
     application = SentryAsgiMiddleware(application)
+
+
+def favourite_languages() -> dict:
+    person = {
+        "jen": "python",
+        "sarah": "c",
+        "edward": "ruby",
+        "phil": "python",
+    }
+    return person
