@@ -1,10 +1,10 @@
+import json
 from contextlib import asynccontextmanager
 from typing import AsyncIterator
 from typing import Callable
 from typing import Dict
 from typing import List
 from typing import Optional
-import json
 
 import asyncpg
 
@@ -90,7 +90,7 @@ async def application(scope: Dict, receive: Callable, send: Callable) -> None:
         }
     )
 
-    if path == '/api/v1/favourite_languages':
+    if path == "/api/v1/favourite_languages":
         payload = favourite_languages()
         body = json.dumps(payload).encode()
     else:
@@ -152,5 +152,10 @@ if not settings.MODE_DEBUG and settings.SENTRY_DSN:
 
 
 def favourite_languages() -> dict:
-    person = {'jen': 'python', 'sarah': 'c', 'edward': 'ruby', 'phil': 'python'}
+    person = {
+        "jen": "python",
+        "sarah": "c",
+        "edward": "ruby",
+        "phil": "python",
+    }
     return person
