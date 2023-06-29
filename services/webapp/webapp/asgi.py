@@ -4,6 +4,7 @@ from typing import Callable
 from typing import Dict
 from typing import List
 from typing import Optional
+import json
 
 import asyncpg
 
@@ -89,12 +90,17 @@ async def application(scope: Dict, receive: Callable, send: Callable) -> None:
         }
     )
 
-    db_settings = await get_db_settings()
-    payload = build_payload(scope, request, db_settings)
+    if path == '/api/v1/favourite_languages':
+        payload = favourite_languages()
+        body = json.dumps(payload).encode()
+    else:
+        db_settings = await get_db_settings()
+        payload = build_payload(scope, request, db_settings)
+        body = payload.json(sort_keys=True, indent=2).encode()
 
     await send(
         {
-            "body": payload.json(sort_keys=True, indent=2).encode(),
+            "body": body,
             "type": "http.response.body",
         }
     )
