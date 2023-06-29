@@ -90,6 +90,8 @@ async def application(scope: Dict, receive: Callable, send: Callable) -> None:
         }
     )
 
+    payload: PayloadT | dict
+
     if path == "/api/v1/favourite_languages":
         payload = favourite_languages()
         body = json.dumps(payload).encode()
